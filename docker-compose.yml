@@ -1,0 +1,48 @@
+version: '3'
+services:
+  mongo1:
+    image: mongo:4.2.6
+    ports:
+      - "27020:27017"
+#    volumes:
+#      - $PWD/storage/db/mongo1:/data/db
+    networks:
+      - mongo-networks
+    command: mongod --bind_ip 0.0.0.0 --replSet replication
+  mongo2:
+    image: mongo:4.2.6
+    ports:
+      - "27021:27017"
+#    volumes:
+#      - $PWD/storage/db/mongo2:/data/db
+    networks:
+      - mongo-networks
+    command: mongod --bind_ip 0.0.0.0 --replSet replication
+    depends_on:
+      - mongo1
+  mongo3:
+    image: mongo:4.2.6
+    ports:
+      - "27022:27017"
+#    volumes:
+#      - $PWD/storage/db/mongo3:/data/db
+    networks:
+      - mongo-networks
+    command: mongod --bind_ip 0.0.0.0 --replSet replication
+    depends_on:
+      - mongo2
+  mongosetup:
+    image: mongo:4.2.6
+    ports:
+      - "27023:27017"
+    volumes:
+      - $PWD/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - mongo-networks
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+networks:
+  mongo-networks:
+    driver: bridge
