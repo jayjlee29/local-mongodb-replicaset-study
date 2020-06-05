@@ -44,3 +44,26 @@ rs.slaveOk()
 docker-compose down
 rm -rf ./storage/db
 ```
+
+## replica set member추가/삭제
+```
+rs.set(host)
+rs.remove(host)
+```
+
+## 강제로 Master node 변경하게 
+
+> 마스터 노드 확인
+```
+rs.status().members
+```
+
+>해당 인덱스로 설정 변경
+```
+const cfg = rs.conf()
+cfg.members[0].priority = 0.5
+cfg.members[1].priority = 0.5
+cfg.members[2].priority = 1
+rs.reconfig(cfg)
+
+```
