@@ -6,6 +6,7 @@ services:
       - "27020:27017"
 #    volumes:
 #      - $PWD/storage/db/mongo1:/data/db
+#      - $PWD/storage/log/mongo1:/var/log/mongodb
     networks:
       - mongo-networks
     command: mongod --bind_ip 0.0.0.0 --replSet replication
@@ -15,6 +16,7 @@ services:
       - "27021:27017"
 #    volumes:
 #      - $PWD/storage/db/mongo2:/data/db
+#      - $PWD/storage/log/mongo2:/var/log/mongodb
     networks:
       - mongo-networks
     command: mongod --bind_ip 0.0.0.0 --replSet replication
@@ -26,6 +28,7 @@ services:
       - "27022:27017"
 #    volumes:
 #      - $PWD/storage/db/mongo3:/data/db
+#      - $PWD/storage/log/mongo3:/var/log/mongodb
     networks:
       - mongo-networks
     command: mongod --bind_ip 0.0.0.0 --replSet replication
