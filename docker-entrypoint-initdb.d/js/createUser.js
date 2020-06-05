@@ -7,7 +7,7 @@ if(db.isMaster().ismaster){
       roles: [{role: "readWrite", db: "decompany"}]
     }
   )
-  db.getSiblingDB("decompanyauth").db.createUser(
+  db.getSiblingDB("decompanyauth").createUser(
     {
       user: "decompany",
       pwd: "decompany1234",
