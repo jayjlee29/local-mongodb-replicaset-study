@@ -51,7 +51,7 @@ rs.set(host)
 rs.remove(host)
 ```
 
-## 강제로 Master node 변경하게 
+## 강제로 Master node 변경하기
 
 > 마스터 노드 확인
 ```
