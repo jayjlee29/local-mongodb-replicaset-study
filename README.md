@@ -1,22 +1,40 @@
 # Docker를 이용하여 Local테스트용 MongoDB replicaset 구성하기
 
-## 주의 
-해당 구성은 로컬 테스트용이며, replica-set 구성 참조를 위한 예제입니다.
-구성후 replica-set uri를 통하여 접속이 불가능하며 remote 확인을 위해서 각 인스턴스별로 접속이 해야만 합니다.
+해당 구성은 AWS에서 개발을 위한 단일 인스턴스에 도커를 이용한 replica-set 구성 예제입니다.
 
-mongodb://decompany:decompany1234@localhost:27020/decompany
-
-## Build
-
-```
-docker-compose build
-```
+## EC2생성
+AWS콘솔에서 mongodb인스턴스로 사용할 EC2를 생성
+replica set 구성을 위하여 security group에서 27017, 27021, 27022포트를 접속 가능한 상태로 설정 필요
 
 ## start/up
+아래 명령을 통하여 mongodb 27017, 27021, 27022 3개의 인스턴스를 구동한다.
 
 ```
 docker-compose up -d
 ```
+
+## Mongdb replica set 구성하기
+
+> 몽고 디비에 접속
+```
+mongo mongodb://localhost:27017
+```
+
+> Replica set 구성
+```
+config = {
+  _id : "replication",
+  members: [
+    {_id:0,host : "{{EC2 Public DNS}}:27017"},
+    {_id:1,host : "{{EC2 Public DNS}}:27021"},
+    {_id:2,host : "{{EC2 Public DNS}}:27022"},
+  ]
+}
+rs.initiate(config);
+rs.conf();
+```
+
+위 단계를 각 인스턴스마다 실행
 
 ## decompany db 생성및 decompany사용자 생성
 ```
@@ -30,8 +48,9 @@ db.createUser(
 )
 db.auth("decompany", "decompany1234")
 ```
+***
 
-
+# 기타 
 ## Slave에서 쿼리 실행하기
 
 ```
