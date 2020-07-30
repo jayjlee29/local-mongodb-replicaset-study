@@ -42,12 +42,19 @@ use decompany
 db.createUser(
    {
      user: "decompany",
-     pwd: "decompany1234",
+     pwd: "{{####}}",
      roles: [{role: "readWrite", db: "decompany"} ]
    }
 )
-db.auth("decompany", "decompany1234")
+db.auth("decompany", "{{#####}}")
 ```
+
+## 접속 URL
+
+```
+mongodb://ec2-3-101-47-97.us-west-1.compute.amazonaws.com:27017,ec2-3-101-47-97.us-west-1.compute.amazonaws.com:27021,ec2-3-101-47-97.us-west-1.compute.amazonaws.com:27022/?replicaSet=replication
+```
+
 ***
 
 # 기타 
