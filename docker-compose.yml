@@ -2,34 +2,34 @@ version: '3'
 services:
   mongo1:
     image: mongo:4.2.6
-#    ports:
-#      - "27020:27020"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - $PWD/storage/db/mongo1:/data/db
       - $PWD/storage/log/mongo1:/var/log/mongodb
-#    networks:
-#      - mongo-networks
+      - $PWD/opts/membership.key:/opts/membership.key:ro
     network_mode: host
-    command: mongod --bind_ip 0.0.0.0 --port 27017 -replSet replication
+    command: mongod --auth --keyFile /opts/membership.key --bind_ip 0.0.0.0 --port 27021 --replSet replication
   mongo2:
     image: mongo:4.2.6
-#    ports:
-#      - "27020:27020"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - $PWD/storage/db/mongo2:/data/db
       - $PWD/storage/log/mongo2:/var/log/mongodb
-#    networks:
-#      - mongo-networks
+      - $PWD/opts/membership.key:/opts/membership.key:ro
     network_mode: host
-    command: mongod --bind_ip 0.0.0.0 --port 27021 --replSet replication
+    command: mongod --auth --keyFile /opts/membership.key --bind_ip 0.0.0.0 --port 27022 --replSet replication
   mongo3:
     image: mongo:4.2.6
-#    ports:
-#      - "27020:27020"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
     volumes:
       - $PWD/storage/db/mongo3:/data/db
       - $PWD/storage/log/mongo3:/var/log/mongodb
-#    networks:
-#      - mongo-networks
+      - $PWD/opts/membership.key:/opts/membership.key:ro
     network_mode: host
-    command: mongod --bind_ip 0.0.0.0 --port 27022 --replSet replication
+    command: mongod --auth --keyFile /opts/membership.key  --bind_ip 0.0.0.0 --port 27023 --replSet replication                                                                                                             
