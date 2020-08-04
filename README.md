@@ -1,6 +1,7 @@
 # Docker를 이용하여 Local테스트용 MongoDB replicaset 구성하기
 
 해당 구성은 AWS에서 개발을 위한 단일 인스턴스에 도커를 이용한 replica-set 구성 예제입니다.
+> https://codefarm.me/2017/09/08/deploy-mongodb-with-docker/
 
 ## EC2생성
 AWS콘솔에서 mongodb인스턴스로 사용할 EC2를 생성
